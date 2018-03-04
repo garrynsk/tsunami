@@ -5,13 +5,16 @@
     <meta charset="utf-8">
     <title>Tsunami</title>
 
-    <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
     <h1>Tsunami</h1>
+    <div id="background">
+        <canvas id="canvas-text" style="z-index: 2; position: absolute;"></canvas>
+        <canvas id="canvas-cursor" style="z-index: 3; position: absolute;"></canvas>
+    </div>
 
-    <canvas id="canvas-text-editor"></canvas>
 
 </body>
 <script src="./dist/bundle.js"></script>

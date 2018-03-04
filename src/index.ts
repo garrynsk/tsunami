@@ -1,29 +1,21 @@
-import Editor from './app/editor';
-import Text from './app/text';
-import Canvas from './app/canvas';
+import Editor from './app/editor'
+import CursorLayer from './app/cursorLayer'
+import TextLayer from './app/textLayer'
+import Canvas from './app/canvas'
+import Cursor from './app/cursor'
 import Dimensions from "./app/base/dimensions"
 import Coordinates from "./app/base/coordinates"
+import Margin from "./app/base/margin"
 
-function setCanvas(width: number, height: number, id: string) {
-    let element = document.getElementById(id)
+export default function tsunami() {
 
-    if (element instanceof HTMLCanvasElement) {
-        this.canvas = element
-        this.canvas.height = height
-        this.canvas.width = width
-        this.ctx = this.canvas.getContext("2d");
-    } else {
-        console.log("An element " + id + " is not a SVG Canvas")
-    }
+    let editor = new Editor("#999", new Coordinates(0, 0), new Dimensions(250, 300), new Margin(14, 14))
+
+    editor.paint('"Courier New", Courier, monospace', "#000", 14, "#000", new Dimensions(1, 20))
+
 }
 
-let rawCanvas = document.getElementById("canvas-text-editor")
+tsunami()
 
-if (rawCanvas instanceof HTMLCanvasElement) {
-    let canvas = new Canvas(rawCanvas, "#999")
-    let text = new Text(new Dimensions(250, 500), new Coordinates(0, 0), 5, "Arial", "#000", 14)
-    let tsunami = new Editor(canvas, text)
 
-    tsunami.paint();
-}
 

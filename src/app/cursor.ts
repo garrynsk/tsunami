@@ -5,21 +5,24 @@ import * as Color from "./base/color"
 
 export default class Cursor {
 
-    constructor(public dimensions: Dimensions, public coordinates: Coordinates) { }
+    constructor(public color: Color.Color, public dimensions: Dimensions) { }
 
-    erase(ctx: CanvasRenderingContext2D, color: Color.Color) {
+    erase(ctx: CanvasRenderingContext2D, coordinates: Coordinates, backgroundColor: Color.Color) {
 
-        ctx.clearRect(this.coordinates.x, this.coordinates.y, this.dimensions.width, this.dimensions.height);
-        this.paint(ctx, color)
+        ctx.clearRect(coordinates.x, coordinates.y, this.dimensions.width, this.dimensions.height);
+
+        //Layer this.paint(ctx, backgroundColor)
+
     }
 
-    paint(ctx: CanvasRenderingContext2D, color: Color.Color) {
+    paint(ctx: CanvasRenderingContext2D, coordinates: Coordinates) {
 
-        let line = new SVGLine(color, this.dimensions)
+        let line = new SVGLine(this.color, this.dimensions)
 
         // window.addEventListener("keypress", (event) => { this.drawLetter(event, ctx) })
 
-        line.paint(ctx, this.coordinates)
+        line.paint(ctx, coordinates)
+
     }
 
 }

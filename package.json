@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "tslint": "node_modules/tslint/bin/tslint -c tslint.json",
+        "test": "node_modules/mocha/bin/mocha -r ts-node/register  src/**/*.spec.ts",
         "build": "node_modules/rollup/bin/rollup -c"
     },
     "repository": {
@@ -18,15 +19,11 @@
     },
     "homepage": "https://github.com/garrynsk/tsunami#readme",
     "devDependencies": {
-        "babel-core": "^6.26.0",
-        "babel-plugin-external-helpers": "^6.22.0",
-        "babel-preset-env": "^1.6.1",
         "rollup": "^0.56.3",
-        "rollup-plugin-babel": "^3.0.3",
-        "rollup-plugin-commonjs": "^8.3.0",
-        "rollup-plugin-json": "^2.3.0",
         "rollup-plugin-node-resolve": "^3.0.3",
-        "rollup-plugin-typescript": "^0.8.1"
+        "rollup-plugin-typescript": "^0.8.1",
+        "tslint": "^5.9.1",
+        "tslint-microsoft-contrib": "^5.0.3"
     },
     "dependencies": {}
 }

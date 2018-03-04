@@ -2,36 +2,54 @@
 import Font from "./font"
 import Dimensions from "./base/dimensions"
 
+type Container = { box: HTMLDivElement, doc: Document }
+
 export default class Glyph {
 
-    public baseline = 0
+    baseline: number = 0
 
-    constructor(public font: Font) {
+    dimensions: Dimensions
 
-        this.baselineCalc(this.box())
+    constructor(public font: Font, doc: Document) {
+
+        let container = this.insertBox(doc)
+
+        let baseline = this.baselineCalc(container.box, container.doc)
+
+        this.baseline = baseline
 
     }
 
-    private box() {
-        var box = document.createElement('div'),
-            body = document.body;
-        box.style.position = 'absolute';
-        box.style.whiteSpace = 'nowrap';
-        box.style.font = this.font.size + 'px ' + this.font.family;
-        body.appendChild(box);
-        box.innerHTML = 'm'; // It doesn't matter what text goes here
-        return box
+    private insertBox(doc: Document): Container {
+
+        if (doc instanceof Document) {
+            let box = doc.createElement('div'),
+                body = doc.body
+
+            box.style.position = 'absolute'
+            box.style.whiteSpace = 'nowrap'
+            box.style.font = this.font.size + 'px ' + this.font.family
+            body.appendChild(box)
+            box.innerHTML = 'm' // It doesn't matter what text goes here
+            this.dimensions = new Dimensions(box.offsetHeight, box.offsetWidth)
+
+            return { box, doc }
+        }
     }
 
-    private baselineCalc(line: HTMLDivElement) {
-        var span = document.createElement('span');
-        span.style.display = 'inline-block';
-        span.style.overflow = 'hidden';
-        span.style.width = '1px';
-        span.style.height = '1px';
-        line.appendChild(span);
-        var baseline = span.offsetTop + span.offsetHeight;
-        return baseline
+    private baselineCalc(box: HTMLDivElement, doc: Document) {
 
+        if (doc instanceof Document) {
+
+            let span = doc.createElement('span')
+            span.style.display = 'inline-block'
+            span.style.overflow = 'hidden'
+            span.style.width = '1px'
+            span.style.height = '1px'
+            box.appendChild(span)
+            let baseline = span.offsetTop + span.offsetHeight
+
+            return baseline
+        }
     }
 }
